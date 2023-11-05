@@ -1445,3 +1445,9 @@ vendor/lib/modules/rdbg.ko
 vendor/lib/modules/rmnet_perf.ko
 vendor/lib/modules/rmnet_shs.ko
 vendor/lib/modules/sla.ko
+
+# Touchfeature
+vendor/bin/hw/vendor.xiaomi.hardware.touchfeature@1.0-service
+vendor/bin/toucheventcheck
+vendor/etc/init/vendor.xiaomi.hardware.touchfeature@1.0-service.rc
+vendor/lib64/hw/vendor.xiaomi.hardware.touchfeature@1.0-impl.so
