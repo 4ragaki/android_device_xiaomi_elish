@@ -435,6 +435,15 @@ PRODUCT_PACKAGES += \
     init.xiaomi.rc \
     ueventd.qcom.rc
 
+# RRO Overlays
+PRODUCT_PACKAGES += \
+    FrameworkResOverlayElish \
+    LineageSDKOverlayElish \
+    NetworkStackOverlayMIUI \
+    SettingsOverlayElish \
+    SettingsProviderOverlayElish \
+    SystemUIOverlayElish
+
 # Sensors
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl-xiaomi \
