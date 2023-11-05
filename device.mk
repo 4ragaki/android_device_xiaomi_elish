@@ -152,8 +152,8 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml
 
 # Boot animation
-TARGET_SCREEN_HEIGHT := 2400
-TARGET_SCREEN_WIDTH := 1080
+TARGET_SCREEN_HEIGHT := 2560
+TARGET_SCREEN_WIDTH := 1600
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -517,4 +517,4 @@ PRODUCT_BOOT_JARS += \
     WfdCommon
 
 # Inherit from vendor blobs
-$(call inherit-product, vendor/xiaomi/alioth/alioth-vendor.mk)
+$(call inherit-product, vendor/xiaomi/elish/elish-vendor.mk)

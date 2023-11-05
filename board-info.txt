@@ -1,1 +1,1 @@
-require board=alioth|aliothin
+require board=elish
