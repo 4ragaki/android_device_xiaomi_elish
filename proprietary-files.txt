@@ -1402,3 +1402,17 @@ vendor/bin/hw/vendor.xiaomi.hardware.touchfeature@1.0-service
 vendor/bin/toucheventcheck
 vendor/etc/init/vendor.xiaomi.hardware.touchfeature@1.0-service.rc
 vendor/lib64/hw/vendor.xiaomi.hardware.touchfeature@1.0-impl.so
+
+# GNSS
+vendor/bin/hw/airoha.hardware.anld
+vendor/bin/hw/android.hardware.gnss@2.1-service-airoha
+vendor/etc/airoha_config/anld_user_setting.xml
+vendor/etc/gnss/ag3335_bootloader.bin
+vendor/etc/gnss/gnss_config.bin
+vendor/etc/gnss/gnss_demo.bin
+vendor/etc/gnss/partition_table.bin
+vendor/etc/gnss/slave_da_UART.bin
+vendor/etc/init/airoha.hardware.anld.rc
+vendor/etc/init/android.hardware.gnss@2.1-service-airoha.rc
+-vendor/etc/vintf/manifest/android.hardware.gnss@2.1-service-airoha.xml
+vendor/lib64/libairoha_libc++_shared.so

@@ -1,0 +1,5 @@
+allow hal_gnss_default airoha_device:chr_file { read write open ioctl };
+allow hal_gnss_default netd:unix_stream_socket connectto;
+allow hal_gnss_default dnsproxyd_socket:tcp_socket write;
+allow hal_gnss_default dnsproxyd_socket:unix_stream_socket connectto ;
+allow hal_gnss_default fwmarkd_socket:tcp_socket { read create setopt getopt connect name_connect };

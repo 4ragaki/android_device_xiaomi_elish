@@ -23,3 +23,11 @@ type thermal_data_file, file_type, data_file_type;
 type ultrasound_device, dev_type;
 
 type vendor_sysfs_iio, fs_type, sysfs_type;
+
+type airoha_data_file, file_type, data_file_type;
+
+type anld_socket_file, file_type;
+
+type airoha_mock_gps, dev_type;
+
+type gps_device, dev_type;
