@@ -1204,7 +1204,7 @@ vendor/bin/batterysecret
 vendor/etc/init/init.batterysecret.rc
 
 # Display-calibration
-vendor/etc/qdcm_calib_data_xiaomi_38_08_0a_cmd_mode_dsc_dsi_panel.xml
+vendor/etc/mdss_dsi_k81_42_02_0a_dual_cphy_video_mi.xml
 
 # Fingerprint
 vendor/app/SensorTestTool/SensorTestTool.apk
@@ -1345,10 +1345,6 @@ vendor/etc/thermal-region-map.conf
 vendor/etc/thermal-tgame.conf
 vendor/etc/thermal-video.conf
 vendor/etc/thermald-devices.conf
-
-# Vibrator firmware
-vendor/firmware/aw8697_haptic.bin
-vendor/firmware/aw8697_rtp_1.bin
 
 
 # elish
