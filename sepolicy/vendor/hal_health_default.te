@@ -1,2 +1,7 @@
 allow hal_health_default sysfs_wakeup:dir r_dir_perms;
 allow hal_health_default sysfs_wakeup:file r_file_perms;
+
+allow hal_health_default hal_health_default_exec:file { read getattr map execute open entrypoint };
+allow hal_health_default sysfs_wireless_supply:dir { search };
+allow hal_health_default sysfs_wireless_supply:file { read getattr open };
+allow hal_health_default sysfs:file { read getattr open };

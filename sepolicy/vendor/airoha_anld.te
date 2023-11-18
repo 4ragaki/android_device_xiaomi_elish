@@ -28,3 +28,7 @@ allow airoha_anld storage_file:dir { ioctl read write create getattr setattr loc
 allow airoha_anld storage_file:file { ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads };
 allow airoha_anld anld_socket_file:sock_file { ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads };
 allow airoha_anld hci_attach_dev:chr_file { read write };
+
+allow airoha_anld airoha_anld:udp_socket { create };
+allow airoha_anld dnsproxyd_socket:sock_file { write };
+#allow airoha_anld system_file:file r_file_perms;
