@@ -72,6 +72,7 @@ vendor/lib/libadm.so
 vendor/lib/libaudcal.so
 vendor/lib/libqtigef.so
 vendor/lib/libssrec.so
+vendor/etc/audio_effects.xml
 
 # Audio-Hardware
 vendor/lib/hw/audio.primary.kona.so
