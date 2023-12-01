@@ -8,6 +8,15 @@ android_app_import {
     privileged: true,
     overrides: [
         "Camera2", "Snap", "Aperture",
+
+        // remove some UNRELATED packages meanwhile
+        "Dialer", "GoogleDialer", "com.google.android.dialer.support",
+        "messaging", "PrebuiltBugle",
+        "GoogleContacts",
+        "Stk",
+        "SafetyHubPrebuilt",
+        "RecorderPrebuilt",
+        "CalculatorGooglePrebuilt"
     ],
     product_specific: true,
 }
