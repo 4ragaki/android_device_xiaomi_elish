@@ -1,0 +1,13 @@
+android_app_import {
+    name: "CameraGo",
+    apk: "CameraGo.apk",
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    privileged: true,
+    overrides: [
+        "Camera2", "Snap", "Aperture",
+    ],
+    product_specific: true,
+}
