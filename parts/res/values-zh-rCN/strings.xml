@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="forcestop_title">强行停止应用</string>
+    <string name="forcestop_summary">锁屏且媒体播放中止后停止应用的所有进程</string>
+    <string name="forcestop_enabled">停止所有进程</string>
+    <string name="forcestop_disabled">默认</string>
+</resources>

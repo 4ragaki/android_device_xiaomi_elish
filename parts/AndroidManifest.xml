@@ -25,6 +25,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -113,6 +115,20 @@
             <meta-data
                 android:name="com.android.settings.order"
                 android:value="1" />
+        </activity>
+
+        <activity
+            android:name=".thermal.ForceStopActivity"
+            android:label="@string/forcestop_title">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.battery" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/forcestop_summary" />
         </activity>
 
     </application>

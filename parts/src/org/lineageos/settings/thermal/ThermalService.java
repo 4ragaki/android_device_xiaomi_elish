@@ -22,15 +22,17 @@ import android.app.ActivityTaskManager.RootTaskInfo;
 import android.app.IActivityTaskManager;
 import android.app.TaskStackListener;
 import android.app.Service;
-import android.app.TaskStackListener;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
+
+import java.util.List;
 
 public class ThermalService extends Service {
 
@@ -41,12 +43,15 @@ public class ThermalService extends Service {
     private ThermalUtils mThermalUtils;
 
     private IActivityTaskManager mActivityTaskManager;
+    private ActivityManager mActivityManager;
+    private MediaSessionManager mMediaSessionManager;
 
     private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             mPreviousApp = "";
             mThermalUtils.setDefaultThermalProfile();
+            mThermalUtils.onSleepChange(intent, mActivityManager, mMediaSessionManager);
         }
     };
 
@@ -56,6 +61,9 @@ public class ThermalService extends Service {
         try {
             mActivityTaskManager = ActivityTaskManager.getService();
             mActivityTaskManager.registerTaskStackListener(mTaskListener);
+
+            mActivityManager = getSystemService(ActivityManager.class);
+            mMediaSessionManager = getSystemService(MediaSessionManager.class);
         } catch (RemoteException e) {
             // Do nothing
         }

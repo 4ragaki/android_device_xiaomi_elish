@@ -16,16 +16,39 @@
 
 package org.lineageos.settings.thermal;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.media.session.MediaController;
+import android.media.session.MediaSessionManager;
+import android.media.session.PlaybackState;
+import android.os.Bundle;
 import android.os.UserHandle;
+import android.util.Log;
+import android.util.Pair;
 
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.utils.FileUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 public final class ThermalUtils {
+    private static final String TAG = "ThermalUtils";
+
+    private static final String FORCESTOP_CONTROL = "forcestop_control";
+    private static final String FORCESTOP_PACKAGE_BILIBILI = "tv.danmaku.bili";
+    private static final String FORCESTOP_PACKAGE_BILIBILI_HD = "tv.danmaku.bilibilihd";
+    private static final String FORCESTOP_PACKAGE_BILIBILI_IN = "com.bilibili.app.in";
+    private static Set<String> sStopSet = null;
+    private String mCurrentPower = null;
 
     protected static final int STATE_DEFAULT = 0;
     protected static final int STATE_BENCHMARK = 1;
@@ -54,8 +77,35 @@ public final class ThermalUtils {
 
     private SharedPreferences mSharedPrefs;
 
-    protected ThermalUtils(Context context) {
+    ThermalUtils(Context context) {
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if (sStopSet == null) {
+            Set<String> stringSet = mSharedPrefs.getStringSet(FORCESTOP_CONTROL, null);
+            if (stringSet == null) sStopSet = new HashSet<>();
+            else sStopSet = new HashSet<>(stringSet);
+        }
+    }
+
+
+    void initialStopSet(Context context) {
+        Set<String> stringSet = mSharedPrefs.getStringSet(FORCESTOP_CONTROL, null);
+        if (stringSet == null) {
+            PackageManager pm = context.getPackageManager();
+
+//          those suckers keep an unnecessary connection when screen is off
+            checkFSPackage(pm, FORCESTOP_PACKAGE_BILIBILI);
+            checkFSPackage(pm, FORCESTOP_PACKAGE_BILIBILI_HD);
+            checkFSPackage(pm, FORCESTOP_PACKAGE_BILIBILI_IN);
+        }
+    }
+
+    private void checkFSPackage(PackageManager pm, String pkg) {
+        try {
+            if (pm.getPackageInfo(pkg, PackageManager.PackageInfoFlags.of(0)) != null){
+                writeForceStopPackage(pkg,true);
+            }
+        } catch (PackageManager.NameNotFoundException e) { e.printStackTrace(); }
     }
 
     public static void startService(Context context) {
@@ -166,5 +216,61 @@ public final class ThermalUtils {
             }
         }
         FileUtils.writeLine(THERMAL_SCONFIG, state);
+    }
+
+    public void writeForceStopPackage(String packageName, boolean enabled) {
+        if (enabled) sStopSet.add(packageName); else sStopSet.remove(packageName);
+        mSharedPrefs.edit().putStringSet(FORCESTOP_CONTROL, sStopSet).commit();
+    }
+
+    public boolean getForceStopStateForPackage(String packageName) {
+        return sStopSet != null && sStopSet.contains(packageName);
+    }
+
+    public void onSleepChange(Intent intent, ActivityManager am, MediaSessionManager msm) {
+        mCurrentPower = intent.getAction();
+        Log.i(TAG,"onSleepChange " + mCurrentPower);
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+            List<MediaController> sessions = msm.getActiveSessions(null);
+            for (String pkg : sStopSet) {
+                boolean toBeStopped = true;
+
+                for (MediaController controller : sessions) {
+                    int state = controller.getPlaybackState().getState();
+                    if (pkg.equals(controller.getPackageName())
+                            && state != PlaybackState.STATE_PAUSED && state != PlaybackState.STATE_STOPPED) {
+                        toBeStopped = false;
+
+                        MediaController.Callback callback = new MediaController.Callback() {
+                            @Override
+                            public void onPlaybackStateChanged(PlaybackState state) {
+                                super.onPlaybackStateChanged(state);
+
+                                if (mCurrentPower.equals(Intent.ACTION_SCREEN_ON)){
+                                    controller.unregisterCallback(this);
+                                    Log.i(TAG, "screen is on, ignore stopping: " + pkg);
+                                    return;
+                                }
+
+                                int playState = state.getState();
+                                if (playState == PlaybackState.STATE_PAUSED || playState == PlaybackState.STATE_STOPPED) {
+                                    controller.unregisterCallback(this);
+                                    am.forceStopPackage(pkg);
+                                    Log.i(TAG, pkg + " was stopped. PlaybackState: " + playState);
+                                }
+                            }
+                        };
+                        controller.registerCallback(callback);
+                        Log.i(TAG, pkg + " is in an active media session.");
+                        break;
+                    }
+                }
+
+                if (toBeStopped) {
+                    am.forceStopPackage(pkg);
+                    Log.i(TAG, pkg + " was stopped.");
+                }
+            }
+        }
     }
 }
