@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="0"
+        android:entries="@array/rotate_tweaks_entries"
+        android:entryValues="@array/rotate_tweaks_values"
+        android:key="rotate_policy"
+        android:summary="%s"
+        android:title="@string/rotate_behavior_title" />
+
+    <com.android.settingslib.widget.FooterPreference
+        android:key="rotate_tweaks_footer"
+        android:title="@string/rotate_tweaks_footer"
+        android:selectable="false">
+    </com.android.settingslib.widget.FooterPreference>
+
+
+</PreferenceScreen>
