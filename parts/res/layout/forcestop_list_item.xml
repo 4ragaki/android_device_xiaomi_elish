@@ -55,7 +55,7 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:textAlignment="viewStart"
-            android:textAppearance="@android:style/TextAppearance.Material.Body2"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
             android:textColor="?android:attr/textColorPrimary" />
 
     </LinearLayout>

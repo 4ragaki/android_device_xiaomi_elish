@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="forcestop_title">强行停止应用</string>
+    <string name="forcestop_title">停止应用</string>
     <string name="forcestop_summary">锁屏且媒体播放中止后停止应用的所有进程</string>
-    <string name="forcestop_enabled">停止所有进程</string>
-    <string name="forcestop_disabled">默认</string>
+    <string name="forcestop_category_stop">停止的应用</string>
+    <string name="forcestop_category_freeze">冻结的组件</string>
+    <string name="forcestop_enabled">停止应用</string>
+    <string name="forcestop_disabled">保持运行</string>
+    <string name="forcestop_frozen">冻结</string>
+    <string name="forcestop_freeze_disabled">启用</string>
+
 </resources>

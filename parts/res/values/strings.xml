@@ -55,8 +55,12 @@
     <string name="thermal_dialer">Dialer</string>
     <string name="thermal_gaming">Gaming</string>
     <string name="thermal_streaming">Streaming</string>
-    <string name="forcestop_title">Force stop Apps</string>
+    <string name="forcestop_title">Stop Apps</string>
     <string name="forcestop_summary">Stop all processes after sleep and media stopped.</string>
+    <string name="forcestop_category_stop">Apps to stop</string>
+    <string name="forcestop_category_freeze">Components to freeze</string>
     <string name="forcestop_enabled">Stop application</string>
-    <string name="forcestop_disabled">Default</string>
+    <string name="forcestop_disabled">Keep running</string>
+    <string name="forcestop_frozen">Frozen</string>
+    <string name="forcestop_freeze_disabled">Enabled</string>
 </resources>
