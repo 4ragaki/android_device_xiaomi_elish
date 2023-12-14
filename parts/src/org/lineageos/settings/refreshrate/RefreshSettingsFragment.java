@@ -23,14 +23,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -59,6 +57,9 @@ public class RefreshSettingsFragment extends PreferenceFragment
     private ActivityFilter mActivityFilter;
     private Map<String, ApplicationsState.AppEntry> mEntryMap =
             new HashMap<String, ApplicationsState.AppEntry>();
+    private final List<String> predefinedPkgs = Arrays.asList(
+            "com.google.android.apps.nexuslauncher"
+    );
 
     private RefreshUtils mRefreshUtils;
     private RecyclerView mAppsRecyclerView;
@@ -398,6 +399,7 @@ public class RefreshSettingsFragment extends PreferenceFragment
                 for (ResolveInfo ri : resolveInfoList) {
                     mLauncherResolveInfoList.add(ri.activityInfo.packageName);
                 }
+                mLauncherResolveInfoList.addAll(predefinedPkgs);
             }
         }
 
