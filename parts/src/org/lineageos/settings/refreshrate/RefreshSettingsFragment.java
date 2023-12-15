@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2020 The LineageOS Project
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 package org.lineageos.settings.refreshrate;
 
 import android.annotation.Nullable;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -23,7 +24,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -31,10 +34,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceFragment;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -49,9 +54,11 @@ import java.util.List;
 import java.util.Map;
 
 public class RefreshSettingsFragment extends PreferenceFragment
-    implements ApplicationsState.Callbacks {
+        implements ApplicationsState.Callbacks {
 
+    private ConcatAdapter mRVAdapter;
     private AllPackagesAdapter mAllPackagesAdapter;
+    private ExtraSettingsAdapter mExtraAdapter;
     private ApplicationsState mApplicationsState;
     private ApplicationsState.Session mSession;
     private ActivityFilter mActivityFilter;
@@ -78,13 +85,15 @@ public class RefreshSettingsFragment extends PreferenceFragment
         mActivityFilter = new ActivityFilter(getActivity().getPackageManager());
 
         mAllPackagesAdapter = new AllPackagesAdapter(getActivity());
+        mExtraAdapter = new ExtraSettingsAdapter();
+        mRVAdapter = new ConcatAdapter(mExtraAdapter, mAllPackagesAdapter);
 
         mRefreshUtils = new RefreshUtils(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.refresh_layout, container, false);
     }
 
@@ -94,7 +103,7 @@ public class RefreshSettingsFragment extends PreferenceFragment
 
         mAppsRecyclerView = view.findViewById(R.id.refresh_rv_view);
         mAppsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAppsRecyclerView.setAdapter(mAllPackagesAdapter);
+        mAppsRecyclerView.setAdapter(mRVAdapter);
     }
 
 
@@ -205,6 +214,17 @@ public class RefreshSettingsFragment extends PreferenceFragment
         }
     }
 
+    private class CategoryViewHolder extends RecyclerView.ViewHolder {
+        private TextView title;
+
+        private CategoryViewHolder(View view) {
+            super(view);
+            this.title = view.findViewById(R.id.category_name);
+
+            view.setTag(this);
+        }
+    }
+
     private class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private Spinner mode;
@@ -224,7 +244,26 @@ public class RefreshSettingsFragment extends PreferenceFragment
         }
     }
 
-     private class ModeAdapter extends BaseAdapter {
+    private class SwitchPrefViewHolder extends RecyclerView.ViewHolder {
+        private TextView title;
+        private TextView status;
+        private ImageView icon;
+        private View rootView;
+        private Switch preference;
+
+        private SwitchPrefViewHolder(View view) {
+            super(view);
+            this.title = view.findViewById(R.id.app_name);
+            this.status = view.findViewById(R.id.app_status);
+            this.icon = view.findViewById(R.id.app_icon);
+            this.preference = view.findViewById(R.id.preference);
+            this.rootView = view;
+
+            view.setTag(this);
+        }
+    }
+
+    private class ModeAdapter extends BaseAdapter {
 
         private final LayoutInflater inflater;
         private final int[] items = {
@@ -269,7 +308,7 @@ public class RefreshSettingsFragment extends PreferenceFragment
         }
     }
 
-        private class AllPackagesAdapter extends RecyclerView.Adapter<ViewHolder>
+    private class AllPackagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             implements AdapterView.OnItemSelectedListener, SectionIndexer {
 
         private List<ApplicationsState.AppEntry> mEntries = new ArrayList<>();
@@ -282,43 +321,60 @@ public class RefreshSettingsFragment extends PreferenceFragment
 
         @Override
         public int getItemCount() {
-            return mEntries.size();
+            return mEntries.size() + 1;
         }
 
         @Override
         public long getItemId(int position) {
-            return mEntries.get(position).id;
+            return mEntries.get(position - 1).id;
         }
-@NonNull
+
         @Override
-         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            if (viewType == 0) {
+                CategoryViewHolder holder = new CategoryViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.list_category_item, parent, false));
+                return holder;
+            }
             return new ViewHolder(LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.refresh_list_item, parent, false));
         }
 
- 	@Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            if (holder instanceof CategoryViewHolder) {
+                ((CategoryViewHolder) holder).title.setText(R.string.refresh_category_appprofile);
+                return;
+            }
+
             Context context = holder.itemView.getContext();
 
-            ApplicationsState.AppEntry entry = mEntries.get(position);
+            ApplicationsState.AppEntry entry = mEntries.get(position - 1);
 
             if (entry == null) {
                 return;
             }
-            holder.mode.setAdapter(new ModeAdapter(context));
-            holder.mode.setOnItemSelectedListener(this);
-            holder.title.setText(entry.label);
-            holder.title.setOnClickListener(v -> holder.mode.performClick());
+            ViewHolder viewHolder = (ViewHolder) holder;
+            viewHolder.mode.setAdapter(new ModeAdapter(context));
+            viewHolder.mode.setOnItemSelectedListener(this);
+            viewHolder.title.setText(entry.label);
+            viewHolder.title.setOnClickListener(v -> viewHolder.mode.performClick());
             mApplicationsState.ensureIcon(entry);
-            holder.icon.setImageDrawable(entry.icon);
+            viewHolder.icon.setImageDrawable(entry.icon);
             int packageState = mRefreshUtils.getStateForPackage(entry.info.packageName);
-            holder.mode.setSelection(packageState, false);
-            holder.mode.setTag(entry);
-            holder.stateIcon.setImageResource(getStateDrawable(packageState));
+            viewHolder.mode.setSelection(packageState, false);
+            viewHolder.mode.setTag(entry);
+            viewHolder.stateIcon.setImageResource(getStateDrawable(packageState));
         }
 
         private void setEntries(List<ApplicationsState.AppEntry> entries,
-                List<String> sections, List<Integer> positions) {
+                                List<String> sections, List<Integer> positions) {
             mEntries = entries;
             mSections = sections.toArray(new String[sections.size()]);
             mPositions = new int[positions.size()];
@@ -332,12 +388,12 @@ public class RefreshSettingsFragment extends PreferenceFragment
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             final ApplicationsState.AppEntry entry = (ApplicationsState.AppEntry) parent.getTag();
-            
+
             int currentState = mRefreshUtils.getStateForPackage(entry.info.packageName);
             if (currentState != position) {
                 mRefreshUtils.writePackage(entry.info.packageName, position);
                 notifyDataSetChanged();
-            }  
+            }
         }
 
         @Override
@@ -376,6 +432,67 @@ public class RefreshSettingsFragment extends PreferenceFragment
         public Object[] getSections() {
             return mSections;
         }
+    }
+
+    private class ExtraSettingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+            implements View.OnClickListener {
+
+        @Override
+        public int getItemCount() {
+            return 2;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            if (viewType == 0) {
+                CategoryViewHolder holder = new CategoryViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.list_category_item, parent, false));
+                return holder;
+            }
+            SwitchPrefViewHolder holder = new SwitchPrefViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_switchpref_item, parent, false));
+            holder.preference.setOnClickListener(this);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            if (holder instanceof CategoryViewHolder) {
+                ((CategoryViewHolder) holder).title.setText(R.string.refresh_category_pref);
+                return;
+            }
+
+            if (position == 1) {
+                SwitchPrefViewHolder viewHolder = (SwitchPrefViewHolder) holder;
+                viewHolder.title.setText(R.string.refresh_title_30hz_as_min);
+                viewHolder.rootView.setOnClickListener(v -> viewHolder.preference.performClick());
+                viewHolder.icon.setImageResource(R.drawable.ic_refresh_min_30);
+
+                boolean minfps30 = mRefreshUtils.is30HzAsMinFPS();
+                viewHolder.status.setText(minfps30 ? R.string.refresh_30hz : R.string.refresh_standard);
+                viewHolder.preference.setTag(RefreshUtils.KEY_MIN_REFRESH_RATE);
+                viewHolder.preference.setChecked(minfps30);
+            }
+        }
+
+        @Override
+        public void onClick(View pref) {
+            String tag = (String) pref.getTag();
+
+            switch (tag) {
+                case RefreshUtils.KEY_MIN_REFRESH_RATE:
+                    mRefreshUtils.set30HzAsMinFPS(((Switch) pref).isChecked());
+                    break;
+            };
+            notifyDataSetChanged();
+        }
+
     }
 
     private class ActivityFilter implements ApplicationsState.AppFilter {

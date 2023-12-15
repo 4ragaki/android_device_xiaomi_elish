@@ -23,6 +23,7 @@ import android.os.UserHandle;
 import android.view.Display;
 
 import android.provider.Settings;
+
 import androidx.preference.PreferenceManager;
 
 public final class RefreshUtils {
@@ -32,7 +33,7 @@ public final class RefreshUtils {
     private static float defaultMaxRate;
     private static float defaultMinRate;
     private static final String KEY_PEAK_REFRESH_RATE = "peak_refresh_rate";
-    private static final String KEY_MIN_REFRESH_RATE = "min_refresh_rate";
+    static final String KEY_MIN_REFRESH_RATE = "min_refresh_rate";
     private Context mContext;
     protected static boolean isAppInList = false;
 
@@ -63,7 +64,7 @@ public final class RefreshUtils {
         mSharedPrefs.edit().putString(REFRESH_CONTROL, profiles).apply();
     }
 
-   protected void getOldRate(){
+    protected void getOldRate() {
         defaultMaxRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, 60);
         defaultMinRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, 60);
     }
@@ -118,24 +119,33 @@ public final class RefreshUtils {
         float minrate = defaultMinRate;
         isAppInList = false;
 
-            if (value != null) {
+        if (value != null) {
             modes = value.split(":");
 
             if (modes[0].contains(packageName + ",")) {
                 maxrate = REFRESH_STATE_STANDARD;
-                if ( minrate > maxrate){
-                minrate = maxrate;
+                if (minrate > maxrate) {
+                    minrate = maxrate;
                 }
-		isAppInList = true;
-           } else if (modes[1].contains(packageName + ",")) {
+                isAppInList = true;
+            } else if (modes[1].contains(packageName + ",")) {
                 maxrate = REFRESH_STATE_EXTREME;
-                if ( minrate > maxrate){
-                minrate = maxrate;
+                if (minrate > maxrate) {
+                    minrate = maxrate;
                 }
-		isAppInList = true;
-           }
-          }
-	Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, minrate);
+                isAppInList = true;
+            }
+        }
+        Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, minrate);
         Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, maxrate);
+    }
+
+    boolean is30HzAsMinFPS() {
+        return Settings.System.getFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, 60) == 30f;
+    }
+
+    void set30HzAsMinFPS(boolean yes) {
+        defaultMinRate = yes ? 30f : 60f;
+        Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, defaultMinRate);
     }
 }

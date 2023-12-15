@@ -262,11 +262,11 @@ public class ForceStopSettingsFragment extends PreferenceFragment
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             if (viewType == 0) {
                 CategoryViewHolder holder = new CategoryViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.forcestop_category_item, parent, false));
+                        .inflate(R.layout.list_category_item, parent, false));
                 return holder;
             }
             AppViewHolder holder = new AppViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.forcestop_list_item, parent, false));
+                    .inflate(R.layout.list_switchpref_item, parent, false));
             holder.preference.setOnClickListener(this);
             return holder;
         }
@@ -330,16 +330,14 @@ public class ForceStopSettingsFragment extends PreferenceFragment
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             if (viewType == 0) {
                 CategoryViewHolder holder = new CategoryViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.forcestop_category_item, parent, false));
+                        .inflate(R.layout.list_category_item, parent, false));
                 return holder;
             }
             AppViewHolder holder = new AppViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.forcestop_list_item, parent, false));
+                    .inflate(R.layout.list_switchpref_item, parent, false));
             holder.preference.setOnClickListener(this);
             return holder;
         }
-
-
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {

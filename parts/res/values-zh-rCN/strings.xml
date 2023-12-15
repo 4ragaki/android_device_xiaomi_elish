@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="refresh_category_appprofile">应用配置</string>
+    <string name="refresh_category_pref">偏好</string>
+    <string name="refresh_title_30hz_as_min">使用30Hz作为最小刷新率</string>
+
     <string name="forcestop_title">停止应用</string>
     <string name="forcestop_summary">锁屏且媒体播放中止后停止应用的所有进程</string>
     <string name="forcestop_category_stop">停止的应用</string>
