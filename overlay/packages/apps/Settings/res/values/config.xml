@@ -12,22 +12,18 @@
 -->
 
 <resources>
-    <!-- The number of vibration intensity levels supported by the device.
+    <!-- Whether to show Smooth Display feature in Settings Options -->
+    <bool name="config_show_smooth_display">true</bool>
 
-         Note that this should correspond to the ability to vary the vibration amplitude, with
-         enough dynamic range to have at least as many distinct intensity levels as defined here.
+    <!-- Whether to show emergency settings in top-level Settings -->
+    <bool name="config_show_emergency_settings">false</bool>
 
-         Supported values are 1, 2, 3. If '1', the settings app will use a toggle for the settings,
-         otherwise a slider. If '3', the settings app maps intensities directly to the levels
-         supported by the Vibrator HAL APIs. If '2', then the levels will be mapped to
-         VIBRATION_INTENSITY_LOW and VIBRATION_INTENSITY_HIGH, which gives the most range for
-         scaling vibrations. The medium intensity will be skipped.
+    <!-- Whether to show emergency gesture in Settings -->
+    <bool name="config_show_emergency_gesture_settings">false</bool>
 
-         The default intensity values are configured at
-         frameworks/base/core/res/res/values/config.xml's config_default[type]VibrationIntensity.
-         Make sure that each default intensity value is consistent with the supported levels set
-         here. If this settings supports only 2 levels, for example, then the default intensity
-         should be either LOW (1) or HIGH (3).
-    -->
-    <integer name="config_vibration_supported_intensity_levels">3</integer>
+    <!-- Whether or not emergency info tile should display in device info page -->
+    <bool name="config_show_emergency_info_in_device_info">false</bool>
+
+    <!-- Whether sim related information is visible to the end user. -->
+    <bool name="config_show_sim_info">false</bool>
 </resources>

@@ -342,9 +342,6 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
 
-PRODUCT_ENFORCE_RRO_TARGETS := *
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay/packages/apps/CarrierConfig
-
 # Packages
 PRODUCT_PACKAGES += \
     CameraGo
@@ -407,15 +404,6 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     init.xiaomi.rc \
     ueventd.qcom.rc
-
-# RRO Overlays
-PRODUCT_PACKAGES += \
-    FrameworkResOverlayElish \
-    LineageSDKOverlayElish \
-    NetworkStackOverlayMIUI \
-    SettingsOverlayElish \
-    SettingsProviderOverlayElish \
-    SystemUIOverlayElish
 
 # Sensors
 PRODUCT_PACKAGES += \
