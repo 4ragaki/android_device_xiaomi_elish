@@ -67,6 +67,9 @@ public class RefreshSettingsFragment extends PreferenceFragment
     private final List<String> predefinedPkgs = Arrays.asList(
             "com.google.android.apps.nexuslauncher"
     );
+    private final List<String> excludedPkgs = Arrays.asList(
+            "com.android.settings"
+    );
 
     private RefreshUtils mRefreshUtils;
     private RecyclerView mAppsRecyclerView;
@@ -517,6 +520,7 @@ public class RefreshSettingsFragment extends PreferenceFragment
                     mLauncherResolveInfoList.add(ri.activityInfo.packageName);
                 }
                 mLauncherResolveInfoList.addAll(predefinedPkgs);
+                mLauncherResolveInfoList.removeAll(excludedPkgs);
             }
         }
 
