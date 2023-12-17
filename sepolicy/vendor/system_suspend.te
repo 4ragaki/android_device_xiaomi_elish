@@ -1,4 +1,2 @@
 allow system_suspend_server sysfs_wireless_supply:dir r_dir_perms;
 allow system_suspend_server sysfs_wireless_supply:file { read getattr open };
-allow system_suspend_server sysfs:dir r_dir_perms;
-allow system_suspend_server sysfs_wakeup:file read;
