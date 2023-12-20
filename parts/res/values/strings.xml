@@ -15,6 +15,32 @@
      limitations under the License.
 -->
 <resources>
+    <!-- Dolby Atmos -->
+    <string name="dolby_title">Dolby Atmos</string>
+    <string name="dolby_enable">Use Dolby Atmos</string>
+    <string name="dolby_preset_title">Choose a preset</string>
+    <string name="dolby_profile_title">Choose a profile</string>
+    <string name="dolby_off">Off</string>
+    <string name="dolby_on">On</string>
+    <string name="dolby_on_with_profile">On (%1$s)</string>
+
+    <!-- Dolby Atmos: Sound Profiles -->
+    <string name="dolby_profile_dynamic">Dynamic</string>
+    <string name="dolby_profile_music">Music</string>
+    <string name="dolby_profile_video">Video</string>
+    <string name="dolby_profile_vocal">Voice</string>
+
+    <!-- Dolby Atmos: Equalizer presets -->
+    <string name="dolby_preset_default">Default</string>
+    <string name="dolby_preset_rock">Rock</string>
+    <string name="dolby_preset_jazz">Jazz</string>
+    <string name="dolby_preset_pop">Pop</string>
+    <string name="dolby_preset_classical">Classical</string>
+    <string name="dolby_preset_hiphop">Hip Hop</string>
+    <string name="dolby_preset_blues">Blues</string>
+    <string name="dolby_preset_electronic">Electronic</string>
+    <string name="dolby_preset_metal">Metal</string>
+
     <!-- Per-app refresh rate -->
     <string name="refresh_title">Per-app refresh rate</string>
     <string name="refresh_summary">Set the maximum refresh rate for a specific application</string>

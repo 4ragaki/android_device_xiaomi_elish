@@ -12,7 +12,7 @@ android_app {
     certificate: "platform",
     platform_apis: true,
     system_ext_specific: true,
-    privileged: true,
+    overrides: ["MusicFX"],
 
     static_libs: [
         "org.pixelexperience.settings.resources",
