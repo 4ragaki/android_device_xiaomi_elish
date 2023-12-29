@@ -15,7 +15,7 @@ android_app {
     overrides: ["MusicFX"],
 
     static_libs: [
-        "org.pixelexperience.settings.resources",
+        "org.lineageos.settings.resources",
         "vendor.xiaomi.hardware.motor-V1.0-java",
     ],
 

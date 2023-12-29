@@ -5,9 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_elish.mk
+    $(LOCAL_DIR)/lineage_elish.mk
 
 COMMON_LUNCH_CHOICES := \
-    aosp_elish-user \
-    aosp_elish-userdebug \
-    aosp_elish-eng
+    lineage_elish-user \
+    lineage_elish-userdebug \
+    lineage_elish-eng
