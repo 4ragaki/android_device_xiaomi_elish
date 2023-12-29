@@ -23,6 +23,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,8 @@ import java.util.stream.Stream;
 
 public class ForceStopSettingsFragment extends PreferenceFragment
         implements ApplicationsState.Callbacks {
+
+    private static final String TAG = "ForceStop";
 
     private ConcatAdapter mRVAdapter;
     private UserPackagesAdapter mUserPackagesAdapter;
@@ -365,10 +368,19 @@ public class ForceStopSettingsFragment extends PreferenceFragment
                 appViewHolder.icon.setImageDrawable(appEntry.icon);
             }
 
-            boolean disabled = mPm.getComponentEnabledSetting(comp) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-            appViewHolder.status.setText(disabled ? R.string.forcestop_frozen : R.string.forcestop_freeze_disabled);
-            appViewHolder.preference.setTag(comp);
-            appViewHolder.preference.setChecked(disabled);
+            try {
+                boolean disabled = mPm.getComponentEnabledSetting(comp) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+                appViewHolder.status.setText(disabled ? R.string.forcestop_frozen : R.string.forcestop_freeze_disabled);
+                appViewHolder.preference.setTag(comp);
+                appViewHolder.preference.setChecked(disabled);
+            } catch (Exception e) {
+                appViewHolder.title.setEnabled(false);
+                appViewHolder.status.setEnabled(false);
+                appViewHolder.icon.setEnabled(false);
+                appViewHolder.rootView.setEnabled(false);
+                appViewHolder.preference.setEnabled(false);
+                Log.e(TAG, e.getMessage());
+            }
         }
 
         @Override
