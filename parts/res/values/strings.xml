@@ -94,6 +94,7 @@
     <string name="thermal_dialer">Dialer</string>
     <string name="thermal_gaming">Gaming</string>
     <string name="thermal_streaming">Streaming</string>
+
     <string name="forcestop_title">Stop Apps</string>
     <string name="forcestop_summary">Stop all processes after sleep and media stopped.</string>
     <string name="forcestop_category_stop">Apps to stop</string>

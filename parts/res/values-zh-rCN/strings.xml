@@ -26,18 +26,17 @@
     <string name="dolby_preset_electronic">电子</string>
     <string name="dolby_preset_metal">金属</string>
 
+    <!-- Per-app refresh rate -->
+    <string name="refresh_title">每个应用程序的刷新率</string>
+    <string name="refresh_summary">为每个应用设置特定的刷新率</string>
+    <string name="refresh_default">默认</string>
+    <string name="refresh_30hz">30Hz</string>
+    <string name="refresh_standard">60Hz</string>
+    <string name="refresh_extreme">120Hz</string>
+
     <string name="refresh_category_appprofile">应用配置</string>
     <string name="refresh_category_pref">偏好</string>
     <string name="refresh_title_30hz_as_min">使用30Hz作为最小刷新率</string>
-
-    <string name="forcestop_title">停止应用</string>
-    <string name="forcestop_summary">锁屏且媒体播放中止后停止应用的所有进程</string>
-    <string name="forcestop_category_stop">停止的应用</string>
-    <string name="forcestop_category_freeze">冻结的组件</string>
-    <string name="forcestop_enabled">停止应用</string>
-    <string name="forcestop_disabled">保持运行</string>
-    <string name="forcestop_frozen">冻结</string>
-    <string name="forcestop_freeze_disabled">启用</string>
 
     <!-- Rotate Tweaks -->
     <string name="rotate_title">旋转锁定行为</string>
@@ -48,4 +47,23 @@
     <string name="rotate_restore">退出后恢复锁定的方向(iPad os)</string>
     <string name="rotate_tweaks_footer">"仅在锁定方向后生效\n*少数应用在某些情况不遵循此设置"</string>
 
+    <!-- Thermal Profiles -->
+    <string name="thermal_title">优化配置文件</string>
+    <string name="thermal_summary">分应用程序调整配置文件以获得最佳性能</string>
+    <string name="thermal_default">不优化</string>
+    <string name="thermal_benchmark">性能</string>
+    <string name="thermal_browser">浏览器</string>
+    <string name="thermal_camera">相机</string>
+    <string name="thermal_dialer">电话</string>
+    <string name="thermal_gaming">游戏</string>
+    <string name="thermal_streaming">流媒体应用程序</string>
+
+    <string name="forcestop_title">停止应用</string>
+    <string name="forcestop_summary">锁屏且媒体播放中止后停止应用的所有进程</string>
+    <string name="forcestop_category_stop">停止的应用</string>
+    <string name="forcestop_category_freeze">冻结的组件</string>
+    <string name="forcestop_enabled">停止应用</string>
+    <string name="forcestop_disabled">保持运行</string>
+    <string name="forcestop_frozen">冻结</string>
+    <string name="forcestop_freeze_disabled">启用</string>
 </resources>
