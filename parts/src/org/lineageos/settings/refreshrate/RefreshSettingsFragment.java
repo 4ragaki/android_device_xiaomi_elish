@@ -65,7 +65,8 @@ public class RefreshSettingsFragment extends PreferenceFragment
     private Map<String, ApplicationsState.AppEntry> mEntryMap =
             new HashMap<String, ApplicationsState.AppEntry>();
     private final List<String> predefinedPkgs = Arrays.asList(
-            "com.google.android.apps.nexuslauncher"
+            "com.google.android.apps.nexuslauncher",
+            "com.android.launcher3"
     );
     private final List<String> excludedPkgs = Arrays.asList(
             "com.android.settings"
