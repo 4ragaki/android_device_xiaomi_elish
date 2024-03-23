@@ -1,31 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Dolby Atmos -->
-    <string name="dolby_title">杜比全景声</string>
-    <string name="dolby_enable">使用杜比全景声</string>
-    <string name="dolby_preset_title">选择预设</string>
-    <string name="dolby_profile_title">选择配置</string>
-    <string name="dolby_off">已关闭</string>
-    <string name="dolby_on">已开启</string>
-    <string name="dolby_on_with_profile">%1$s</string>
-
-    <!-- Dolby Atmos: Sound Profiles -->
-    <string name="dolby_profile_dynamic">动态</string>
-    <string name="dolby_profile_music">音乐</string>
-    <string name="dolby_profile_video">电影</string>
-    <string name="dolby_profile_vocal">人声</string>
-
-    <!-- Dolby Atmos: Equalizer presets -->
-    <string name="dolby_preset_default">默认</string>
-    <string name="dolby_preset_rock">摇滚</string>
-    <string name="dolby_preset_jazz">爵士</string>
-    <string name="dolby_preset_pop">流行</string>
-    <string name="dolby_preset_classical">古典</string>
-    <string name="dolby_preset_hiphop">嘻哈</string>
-    <string name="dolby_preset_blues">蓝调</string>
-    <string name="dolby_preset_electronic">电子</string>
-    <string name="dolby_preset_metal">金属</string>
-
     <!-- Per-app refresh rate -->
     <string name="refresh_title">每个应用程序的刷新率</string>
     <string name="refresh_summary">为每个应用设置特定的刷新率</string>
