@@ -301,6 +301,7 @@ vendor.usb.use_gadget_hal=0
 
 # Volume steps
 ro.config.vc_call_vol_steps=11
+ro.config.media_vol_steps=15
 
 # WiFi
 wifi.aware.interface=wifi-aware0
