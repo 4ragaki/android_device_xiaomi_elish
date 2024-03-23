@@ -16,10 +16,10 @@
     <string name="rotate_title">旋转锁定行为</string>
     <string name="rotate_summary">更多旋转锁定设置</string>
     <string name="rotate_behavior_title">旋转锁定时打开应用</string>
-    <string name="rotate_default">默认行为(更改方向)</string>
-    <string name="rotate_lock">保持锁定的方向打开(Miui for Pad)</string>
-    <string name="rotate_restore">退出后恢复锁定的方向(iPad os)</string>
-    <string name="rotate_tweaks_footer">"仅在锁定方向后生效\n*少数应用在某些情况不遵循此设置"</string>
+    <string name="rotate_default">更改方向 (默认行为)</string>
+    <string name="rotate_lock">保持锁定的方向 (Miui for Pad)</string>
+    <string name="rotate_restore">退出后恢复 (iPad os)</string>
+    <string name="rotate_tweaks_footer">"仅在锁定方向后生效\n*部分应用工作不正常"</string>
 
     <!-- Thermal Profiles -->
     <string name="thermal_title">优化配置文件</string>
@@ -33,7 +33,7 @@
     <string name="thermal_streaming">流媒体应用程序</string>
 
     <string name="forcestop_title">停止应用</string>
-    <string name="forcestop_summary">锁屏且媒体播放中止后停止应用的所有进程</string>
+    <string name="forcestop_summary">锁屏且媒体播放(暂停/结束)后停止应用的所有进程</string>
     <string name="forcestop_category_stop">停止的应用</string>
     <string name="forcestop_category_freeze">冻结的组件</string>
     <string name="forcestop_enabled">停止应用</string>

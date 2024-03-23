@@ -24,7 +24,7 @@
     <string name="refresh_30hz">30Hz</string>
     <string name="refresh_standard">60Hz</string>
     <string name="refresh_extreme">120Hz</string>
-    <string name="refresh_title_30hz_as_min">Set 30 Hz as minimum refrehrate</string>
+    <string name="refresh_title_30hz_as_min">Set 30Hz as minimum refrehrate</string>
 
     <!-- Popup camera settings -->
     <string name="popup_led_title">Camera LED</string>
@@ -51,11 +51,11 @@
 
     <!-- Rotate Tweaks -->
     <string name="rotate_title">Rotation Lock Tweaks</string>
-    <string name="rotate_summary">More options on rotation lock behavior</string>
+    <string name="rotate_summary">More options on rotation lock</string>
     <string name="rotate_behavior_title">Rotation on apps launching Behavior</string>
-    <string name="rotate_default">Default Behavior(apply new orientation)</string>
-    <string name="rotate_lock">Lock orientation(Miui for Pad)</string>
-    <string name="rotate_restore">Restore on closing(iPad os)</string>
+    <string name="rotate_default">Apply new orientation (Default Behavior)</string>
+    <string name="rotate_lock">Lock orientation (Miui for Pad)</string>
+    <string name="rotate_restore">Restore on quitting (iPad os)</string>
     <string name="rotate_tweaks_footer">"changes orientation locked behavior only.\n*minor set of apps won't work as expected."</string>
 
     <!-- Thermal Profiles -->
@@ -70,7 +70,7 @@
     <string name="thermal_streaming">Streaming</string>
 
     <string name="forcestop_title">Stop Apps</string>
-    <string name="forcestop_summary">Stop all processes after sleep and media stopped.</string>
+    <string name="forcestop_summary">Stop all processes after sleeping and media being (paused/ended).</string>
     <string name="forcestop_category_stop">Apps to stop</string>
     <string name="forcestop_category_freeze">Components to freeze</string>
     <string name="forcestop_enabled">Stop application</string>
