@@ -45,42 +45,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".dolby.DolbyActivity"
-            android:exported="true"
-            android:label="@string/dolby_title"
-            android:theme="@style/Theme.SubSettingsBase">
-            <intent-filter>
-                <action android:name="com.android.settings.action.IA_SETTINGS" />
-                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.media.action.DISPLAY_AUDIO_EFFECT_CONTROL_PANEL" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.CATEGORY_CONTENT_MUSIC" />
-            </intent-filter>
-            <meta-data android:name="com.android.settings.category"
-                       android:value="com.android.settings.category.ia.sound" />
-            <meta-data android:name="com.android.settings.summary_uri"
-                       android:value="content://org.lineageos.settings.device.summary/dolby" />
-        </activity>
-
-        <provider
-            android:name=".SummaryProvider"
-            android:authorities="org.lineageos.settings.device.summary">
-        </provider>
-
-        <service
-            android:name=".dolby.DolbyTileService"
-            android:exported="true"
-            android:icon="@drawable/ic_dolby_qs"
-            android:label="@string/dolby_title"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-        </service>
-
         <service
             android:name=".popupcamera.PopupCameraService"
             android:permission="PopupCameraService">
