@@ -43,6 +43,7 @@ import org.lineageos.settings.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,6 +202,11 @@ public class ForceStopSettingsFragment extends PreferenceFragment
         List<ApplicationsState.AppEntry> userEntries =
                 entries.stream().filter(appEntry -> mUserApps.stream()
                         .anyMatch(p -> p.equals(appEntry.info.packageName)))
+                        .sorted((e1, e2) -> {
+                            int a = mThermalUtils.getForceStopStateForPackage(e1.info.packageName) ? 0 : 1;
+                            int b = mThermalUtils.getForceStopStateForPackage(e2.info.packageName) ? 0 : 1;
+                            return a - b;
+                        })
                         .collect(Collectors.toList());
         mUserPackagesAdapter.setEntries(userEntries);
 
@@ -317,6 +323,7 @@ public class ForceStopSettingsFragment extends PreferenceFragment
             implements View.OnClickListener {
 
         private List<ApplicationsState.AppEntry> mEntries = new ArrayList<>();
+        private List<ComponentName> mSortedCN = new ArrayList<>();
 
         @Override
         public int getItemCount() {
@@ -349,7 +356,7 @@ public class ForceStopSettingsFragment extends PreferenceFragment
                 return;
             }
 
-            ComponentName comp = mExtraComponents[position - 1];
+            ComponentName comp = mSortedCN.get(position - 1);
 
             if (comp == null) {
                 return;
@@ -395,6 +402,15 @@ public class ForceStopSettingsFragment extends PreferenceFragment
 
         private void setEntries(List<ApplicationsState.AppEntry> entries) {
             mEntries = entries;
+            mSortedCN = Arrays.stream(mExtraComponents).sorted((e1, e2) -> {
+                        try{
+                            int a = mPm.getComponentEnabledSetting(e1) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ? 0 : 1;
+                            int b = mPm.getComponentEnabledSetting(e2) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ? 0 : 1;
+                            return a - b;
+                        } catch (Exception e){ e.printStackTrace(); }
+                        return 0;
+                    })
+                    .collect(Collectors.toList());
             notifyDataSetChanged();
         }
     }
