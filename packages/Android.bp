@@ -1,6 +1,6 @@
 android_app_import {
     name: "CameraGo",
-    apk: "CameraGo.apk",
+    apk: "GCamGOPrebuilt-v3_8.apk",
     certificate: "platform",
     dex_preopt: {
         enabled: false,
